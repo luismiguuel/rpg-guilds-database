@@ -21,14 +21,21 @@ CREATE TABLE PERSONAGEM (
     sexo VARCHAR(20),
     nome_personagem VARCHAR(100) NOT NULL,
     conexao TIMESTAMP, 
-    dano_por_segundo DECIMAL(10,2) DEFAULT 0,
-    cura_por_segundo DECIMAL(10,2) DEFAULT 0,
-    hp INT,
-    
+
     FOREIGN KEY (id_guilda) REFERENCES GUILDA(id_guilda),
     FOREIGN KEY (id_jogador) REFERENCES JOGADOR(id_jogador),
     FOREIGN KEY (id_prop_inv) REFERENCES PROP_INVENTARIO(id_prop_inv)
+    FOREIGN KEY (classe, level) REFERENCES PERSONAGEM_STATUS(classe, level)
 );
+
+CREATE TABLE PERSONAGEM_STATUS (
+    classe VARCHAR(50) PRIMARY KEY,
+    level INT NOT NULL,
+    dano_por_segundo DECIMAL(10,2) DEFAULT 0,
+    cura_por_segundo DECIMAL(10,2) DEFAULT 0,
+    hp INT NOT NULL
+
+)
 
 ALTER TABLE GUILDA 
 ADD CONSTRAINT fk_guilda_gestor 
