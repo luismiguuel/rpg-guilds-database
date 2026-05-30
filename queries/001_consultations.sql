@@ -1,9 +1,9 @@
--- 1. Listar todos os personagens com seus dados completos
+-- Listar todos os personagens com seus dados completos
 SELECT *
 FROM vw_personagem_completo
 ORDER BY level DESC;
 
--- 2. SUBCONSULTA — Personagens com level acima da média geral
+-- SUBCONSULTA — Personagens com level acima da média geral
 SELECT nome_personagem, classe, level
 FROM PERSONAGEM
 WHERE level > (
@@ -12,7 +12,7 @@ WHERE level > (
 )
 ORDER BY level DESC;
 
--- 3. SUBCONSULTA — Guildas que ainda não participaram de nenhuma missão
+-- SUBCONSULTA — Guildas que ainda não participaram de nenhuma missão
 SELECT nome
 FROM GUILDA
 WHERE id_guilda NOT IN (
@@ -21,7 +21,7 @@ WHERE id_guilda NOT IN (
 );
 
 
--- 4. SUBCONSULTA — Missões com recompensa em ouro acima da média de todas as missões
+-- SUBCONSULTA — Missões com recompensa em ouro acima da média de todas as missões
 SELECT titulo, dificuldade, ouro, experiencia
 FROM MISSAO
 WHERE ouro > (
@@ -30,7 +30,7 @@ WHERE ouro > (
 )
 ORDER BY ouro DESC;
 
--- 5. SUBCONSULTA CORRELACIONADA — Para cada guilda, mostrar o personagem com maior level (gestor ou não)
+-- SUBCONSULTA CORRELACIONADA — Para cada guilda, mostrar o personagem com maior level (gestor ou não)
 SELECT
     g.nome AS guilda,
     p.nome_personagem,
@@ -43,17 +43,17 @@ WHERE p.level = (
     WHERE p2.id_guilda = p.id_guilda
 );
 
--- 6. Resumo de todas as missões com número de participantes
+-- Resumo de todas as missões com número de participantes
 SELECT *
 FROM vw_missao_resumo
 ORDER BY total_participantes DESC;
 
--- 7. Itens no inventário de cada personagem
+-- Itens no inventário de cada personagem
 SELECT *
 FROM vw_inventario_personagem
 ORDER BY nome_personagem;
 
--- 8. Ranking das guildas com o total de membros
+-- Ranking das guildas com o total de membros
 SELECT
     g.nome          AS guilda,
     g.ranking,
@@ -64,7 +64,7 @@ LEFT JOIN PERSONAGEM p ON p.id_guilda = g.id_guilda
 GROUP BY g.id_guilda
 ORDER BY g.ranking DESC;
 
--- 9. Itens disponíveis para a classe 'Guerreiro'
+-- Itens disponíveis para a classe 'Guerreiro'
 SELECT
     di.nome          AS item,
     ti.nome_tipo_item AS tipo,
@@ -74,7 +74,7 @@ JOIN TIPO_ITEM ti   ON ti.id_tipo_item  = di.id_tipo_item
 JOIN ITEM_CLASSE ic ON ic.id_dados_item = di.id_dados_item
 WHERE ic.nome_classe = 'Guerreiro';
 
--- 10. Relações diplomáticas entre guildas
+-- Relações diplomáticas entre guildas
 SELECT
     g1.nome AS guilda_origem,
     rg.tipo_relacao,
